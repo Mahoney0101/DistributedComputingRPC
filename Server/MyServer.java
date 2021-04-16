@@ -57,20 +57,20 @@ public class MyServer extends LOGINPROGServer
                        return("104: user already logged in");
                    }
                    for(int i=0;i<directories.length;i++) {
-                       if (directories[i].trim().equals(clientMessage[1])) {
+                       if (directories[i].trim().equals(clientMessage[0])) {
                            exists=true;
                            user=directories[i].trim();
                        }
                    }
                    String path = "ServerFiles/UserFiles/"+user;
-                   if(exists==true && findFile(clientMessage[2],new File(path)) == true){
+                   if(exists==true && findFile(clientMessage[1],new File(path)) == true){
                        loggedIn = true;
-                       return("101: user logged in " + findFile(clientMessage[2],new File(path)) );
+                       return("101: user logged in " + findFile(clientMessage[1],new File(path)) );
                    }
                    else{
-                       Path userPath = Paths.get("ServerFiles/UserFiles/"+clientMessage[1]);
+                       Path userPath = Paths.get("ServerFiles/UserFiles/"+clientMessage[0]);
                        Files.createDirectory(userPath);
-                       Path filePath = Paths.get("ServerFiles/UserFiles/"+clientMessage[1]+"/"+clientMessage[2]+".txt");
+                       Path filePath = Paths.get("ServerFiles/UserFiles/"+clientMessage[0]+"/"+clientMessage[1]+".txt");
                        Files.createFile(filePath);
                        loggedIn = true;
                        return("103: account created");
